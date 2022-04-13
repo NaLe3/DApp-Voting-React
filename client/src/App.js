@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import votingContract from "./contracts/voting.json";
+import votingContract from "./contracts/Voting.json";
 import getWeb3 from "./getWeb3";
 
 import "./App.css";
