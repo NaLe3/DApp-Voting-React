@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/DApp-Voting-React/static/css/main.b100e6da.chunk.css",
+    "main.js": "/DApp-Voting-React/static/js/main.7be1c5df.chunk.js",
+    "main.js.map": "/DApp-Voting-React/static/js/main.7be1c5df.chunk.js.map",
+    "runtime-main.js": "/DApp-Voting-React/static/js/runtime-main.13cb83cd.js",
+    "runtime-main.js.map": "/DApp-Voting-React/static/js/runtime-main.13cb83cd.js.map",
+    "static/js/2.cc8c46e4.chunk.js": "/DApp-Voting-React/static/js/2.cc8c46e4.chunk.js",
+    "static/js/2.cc8c46e4.chunk.js.map": "/DApp-Voting-React/static/js/2.cc8c46e4.chunk.js.map",
+    "index.html": "/DApp-Voting-React/index.html",
+    "precache-manifest.a2bca67d48493f9add644890472dc6e1.js": "/DApp-Voting-React/precache-manifest.a2bca67d48493f9add644890472dc6e1.js",
+    "service-worker.js": "/DApp-Voting-React/service-worker.js",
+    "static/css/main.b100e6da.chunk.css.map": "/DApp-Voting-React/static/css/main.b100e6da.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.13cb83cd.js",
+    "static/js/2.cc8c46e4.chunk.js",
+    "static/css/main.b100e6da.chunk.css",
+    "static/js/main.7be1c5df.chunk.js"
+  ]
+}
