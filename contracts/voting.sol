@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /**
  * @title Voting smart contract
  *
- * @author NaLe3
+ * @author Jonacity
  *
  * @dev A simple voting system
  */
@@ -41,14 +41,14 @@ contract Voting is Ownable {
     event VoterRegistered(address voterAddress);
     event ProposalRegistered(uint proposalId);
     event Voted (address voter, uint proposalId);
-    event ResetVote(uint date);
+    event ResetVote(uint date, uint blockNumber);
     event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus);
 
     /**
-     * @dev Constructor: the contract owner is added as a voter
+     * @dev Constructor: the contract owner is added as voter
      */
-    constructor() Ownable() {
-      addVoter(msg.sender);
+    constructor() {
+        addVoter(msg.sender);
     }
 
     /**
@@ -85,10 +85,19 @@ contract Voting is Ownable {
     /**
      * @dev Get all proposals
      *
-     * @return Proposal[] Created proposals list
+     * @return Proposal[] Added proposals list
      */
     function getProposals() external onlyVoters view returns (Proposal[] memory) {
         return proposalsArray;
+    }
+
+    /**
+     * @dev Get all voters addresses
+     *
+     * @return address[] Registered voters addresses
+     */
+    function getVoters() external onlyVoters view returns (address[] memory) {
+        return votersArray;
     }
 
     // ::::::::::::: REGISTRATION ::::::::::::: //
@@ -261,7 +270,7 @@ contract Voting is Ownable {
      * @dev Reset the voting system restoring all variables to initial values
      */
     function resetVote() public onlyOwner {
-        require(workflowStatus == WorkflowStatus.VotesTallied, "Votes not tallied");
+        // require(workflowStatus == WorkflowStatus.VotesTallied, "Votes not tallied");
 
         for (uint n = 0; n < votersArray.length; n ++) {
             delete voters[votersArray[n]];
@@ -270,8 +279,8 @@ contract Voting is Ownable {
         delete proposalsArray;
         winningProposalID = 0;
         workflowStatus = WorkflowStatus.RegisteringVoters;
-				addVoter(msg.sender);
-        emit ResetVote(block.timestamp);
+        addVoter(msg.sender);
+        emit ResetVote(block.timestamp, block.number);
     }
 
 }
