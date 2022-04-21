@@ -1,4 +1,7 @@
 import React from "react";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
 function WorkflowStatus(props) {
 
@@ -9,15 +12,15 @@ function WorkflowStatus(props) {
   const workflowStepButton = () => {
     switch (workflowStatus) {
       case "0":
-        return <button onClick={startProposalsRegistering}>Start proposal registration</button>;
+        return <Button variant="outline-primary" onClick={startProposalsRegistering}>Start proposal registration</Button>;
       case "1":
-        return <button onClick={endProposalsRegistering}>End proposal registration</button>;
+        return <Button variant="outline-primary" onClick={endProposalsRegistering}>End proposal registration</Button>;
       case "2":
-        return <button onClick={startVotingSession}>Start voting session</button>;
+        return <Button variant="outline-primary" onClick={startVotingSession}>Start voting session</Button>;
       case "3":
-        return <button onClick={endVotingSession}>End voting session</button>;
+        return <Button variant="outline-primary" onClick={endVotingSession}>End voting session</Button>;
       case "4":
-        return <button onClick={tallyVotes}>Tally votes</button>;
+        return <Button variant="outline-primary" onClick={tallyVotes}>Tally votes</Button>;
     }
   }
 
@@ -57,9 +60,13 @@ function WorkflowStatus(props) {
   }
 
   return(
-    <div className="WorkflowStatus"> 
-      {workflowStepButton()}
-    </div>
+    <Container>
+      <Row className="justify-content-md-center">
+        <div className="WorkflowStatus"> 
+          {workflowStepButton()}
+        </div>
+      </Row>
+    </Container>
   )
 }
 

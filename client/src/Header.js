@@ -1,4 +1,9 @@
 import React from "react";
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+
+
 
 
 function Header(props) {
@@ -24,7 +29,6 @@ function Header(props) {
     if (Owned()) {
       return "owner";
     }
-
     if (isRegistered) {
       return "registered";
     }
@@ -33,16 +37,20 @@ function Header(props) {
   };
 
   return (
-    <div>
-      <h1>Voting dApp project</h1>
-			<p><strong>You are {renderLoggedUser()} ({state.accounts[0]})</strong></p>
-			{Owned() &&
-      <>
-        <br />
-        <button onClick={resetVote}>Reset vote</button>
-        <br />
-      </>}
-    </div>
+    
+    <Navbar expand="lg" variant="light" bg="light">
+      <Container>
+        <Navbar.Brand><h2>Voting DApp</h2></Navbar.Brand>
+        <p class="center"><strong>You are {renderLoggedUser()} </strong>
+          <p>({state.accounts[0]})</p>
+        </p>
+
+        {Owned() &&
+        <>
+          <Button variant="secondary" onClick={resetVote}>Reset vote</Button>
+        </>}
+      </Container>
+    </Navbar>
   )
 }
 

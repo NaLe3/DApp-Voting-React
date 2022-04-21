@@ -1,4 +1,10 @@
 import React from "react";
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 
 
 function Proposal(props) {
@@ -49,19 +55,29 @@ function Proposal(props) {
     }
   
     return (
-      <div>
+      <Container>
         {proposalWinningId && <p><b>The winner proposal is: {proposals[proposalWinningId].description}</b></p>}
-        Proposals:
+        
         {proposals.map((proposal, index) =>
-          <div key={index}>
-            <p>{proposal.description}</p>
-            {workflowStatus === "3" && !currentUser.hasVoted &&
-            <button onClick={() => vote(index)}>Vote</button>}
-            {workflowStatus === "5" &&
-            <div>{proposal.voteCount} {proposal.voteCount > 1 ? "votes" : "vote"}</div>}
-          </div>
+          <Row className="justify-content-md-center">
+            <Card style={{ width: '18rem' }}>
+              <Card.Header>Proposals {index + 1}:</Card.Header>
+              <ListGroup variant="flush">
+                <ListGroup.Item> <p>{proposal.description}</p></ListGroup.Item>
+                {workflowStatus === "3" && !currentUser.hasVoted &&
+                <ListGroup>
+                  <Button variant="info" onClick={() => vote(index)}>Vote</Button>
+                </ListGroup>}
+                <ListGroup>
+                  {workflowStatus === "5" &&
+                  <Badge bg="success">{proposal.voteCount} {proposal.voteCount > 1 ? "votes" : "vote"}</Badge>}
+                </ListGroup>
+              </ListGroup>
+            </Card>
+            
+          </Row>
         )}
-      </div>
+      </Container>
     )
   }
 

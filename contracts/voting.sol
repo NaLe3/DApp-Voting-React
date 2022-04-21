@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /**
  * @title Voting smart contract
  *
- * @author Jonacity
+ * @author NaLe3
  *
  * @dev A simple voting system
  */
@@ -253,34 +253,32 @@ contract Voting is Ownable {
      * @dev Tally the votes and set the proposal winner (winningProposalId)
      */
     function tallyVotes() external onlyOwner {
-            require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
+			require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
 
-            uint8 _winningProposalId;
-            for (uint8 p = 0; p < proposalsArray.length; p++) {
-                if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
-                    _winningProposalId = p;
-                }
-            }
-            winningProposalID = _winningProposalId;
-            workflowStatus = WorkflowStatus.VotesTallied;
-            emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
-        }
+			uint8 _winningProposalId;
+			for (uint8 p = 0; p < proposalsArray.length; p++) {
+					if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
+							_winningProposalId = p;
+					}
+			}
+			winningProposalID = _winningProposalId;
+			workflowStatus = WorkflowStatus.VotesTallied;
+			emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
+      }
 
     /**
      * @dev Reset the voting system restoring all variables to initial values
      */
     function resetVote() public onlyOwner {
-        // require(workflowStatus == WorkflowStatus.VotesTallied, "Votes not tallied");
-
-        for (uint n = 0; n < votersArray.length; n ++) {
-            delete voters[votersArray[n]];
-        }
-        delete votersArray;
-        delete proposalsArray;
-        winningProposalID = 0;
-        workflowStatus = WorkflowStatus.RegisteringVoters;
-        addVoter(msg.sender);
-        emit ResetVote(block.timestamp, block.number);
+			for (uint n = 0; n < votersArray.length; n ++) {
+					delete voters[votersArray[n]];
+			}
+			delete votersArray;
+			delete proposalsArray;
+			winningProposalID = 0;
+			workflowStatus = WorkflowStatus.RegisteringVoters;
+			addVoter(msg.sender);
+			emit ResetVote(block.timestamp, block.number);
     }
 
 }
