@@ -74,7 +74,6 @@ function Proposal(props) {
                 </ListGroup>
               </ListGroup>
             </Card>
-            
           </Row>
         )}
       </Container>

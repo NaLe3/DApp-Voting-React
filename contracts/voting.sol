@@ -45,7 +45,7 @@ contract Voting is Ownable {
     event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus);
 
     /**
-     * @dev Constructor: the contract owner is added as voter
+     * @dev Constructor: the contract owner is added as a voter
      */
     constructor() {
         addVoter(msg.sender);
@@ -115,14 +115,6 @@ contract Voting is Ownable {
         emit VoterRegistered(_addr);
     }
 
-    /* facultatif
-     * function deleteVoter(address _addr) external onlyOwner {
-     *   require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Voters registration is not open yet');
-     *   require(voters[_addr].isRegistered == true, 'Not registered.');
-     *   voters[_addr].isRegistered = false;
-     *  emit VoterRegistered(_addr);
-    }*/
-
     // ::::::::::::: PROPOSAL ::::::::::::: //
     /**
      * @dev Create a proposal
@@ -157,31 +149,6 @@ contract Voting is Ownable {
         proposalsArray[_id].voteCount++;
         emit Voted(msg.sender, _id);
     }
-
-    // ::::::::::::: STATE ::::::::::::: //
-    /* on pourrait factoriser tout ça: par exemple:
-    *
-    *  modifier checkWorkflowStatus(uint  _num) {
-    *    require (workflowStatus=WorkflowStatus(uint(_num)-1, "bad workflowstatus");
-    *    require (num != 5, "il faut lancer tally votes");
-    *    _;
-    *  }
-    *
-    *  function setWorkflowStatus(WorkflowStatus _num) public checkWorkflowStatus( _num) onlyOwner {
-    *    WorkflowStatus old = workflowStatus;
-    *    workflowStatus = WorkflowStatus(_num);
-    *    emit WorkflowStatusChange(old, workflowStatus);
-    *   }
-    *
-    *  ou plus simplement:
-    *  function nextWorkflowStatus() onlyOwner{
-    *    require (uint(workflowStatus)!=4, "il faut lancer tallyvotes");
-    *    WorkflowStatus old = workflowStatus;
-    *    workflowStatus= WorkflowStatus(uint (workflowstatus) + 1);
-    *    emit WorkflowStatusChange(old, workflowStatus);
-    *  }
-    *
-    */
 
     /**
      * @dev Start the proposals registering
@@ -222,32 +189,6 @@ contract Voting is Ownable {
         workflowStatus = WorkflowStatus.VotingSessionEnded;
         emit WorkflowStatusChange(WorkflowStatus.VotingSessionStarted, WorkflowStatus.VotingSessionEnded);
     }
-
-    /* function tallyVotesDraw() external onlyOwner {
-       require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
-        uint highestCount;
-        uint[5]memory winners; // egalite entre 5 personnes max
-        uint nbWinners;
-        for (uint i = 0; i < proposalsArray.length; i++) {
-            if (proposalsArray[i].voteCount == highestCount) {
-                winners[nbWinners]=i;
-                nbWinners++;
-            }
-            if (proposalsArray[i].voteCount > highestCount) {
-                delete winners;
-                winners[0]= i;
-                highestCount = proposalsArray[i].voteCount;
-                nbWinners=1;
-            }
-        }
-        for(uint j=0;j<nbWinners;j++){
-            winningProposalsID.push(winners[j]);
-            winningProposals.push(proposalsArray[winners[j]]);
-        }
-        workflowStatus = WorkflowStatus.VotesTallied;
-        emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
-    } */
-
 
     /**
      * @dev Tally the votes and set the proposal winner (winningProposalId)

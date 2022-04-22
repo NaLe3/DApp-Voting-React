@@ -33,13 +33,9 @@ const App = () => {
   useEffect(() => {
     (async () => {
       try {
-        // Get network provider and web3 instance.
+
         const web3 = await getWeb3();
-  
-        // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
-  
-        // Get the contract instance.
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = VotingContract.networks[networkId];
         const instance = new web3.eth.Contract(
@@ -73,14 +69,10 @@ const App = () => {
           const resetData = await instance.getPastEvents("ResetVote", options)
       
           options = {
-            // filter: {
-            //     value: "address"
-            // },
             fromBlock: 0,
             toBlock: 'latest'
           };  
           const votersData = await instance.getPastEvents("VoterRegistered", options)
-          // console.log("votersData", votersData);
           votersData.map(async event => {
             if (event.returnValues.voterAddress === accounts[0]) {
               setIsRegistered(true);
@@ -123,7 +115,6 @@ const App = () => {
           .on("error", err => console.error(err))
           .on("connected", str => console.log(str));
       } catch (error) {
-        // Catch any errors for any of the above operations.
         alert(
           `Failed to load web3, accounts, or contract. Check console for details.`,
         );
