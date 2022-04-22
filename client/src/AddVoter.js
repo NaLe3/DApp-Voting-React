@@ -1,4 +1,10 @@
 import React from "react";
+import InputGroup from 'react-bootstrap/InputGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 
 function AddVoter(props) {
@@ -6,16 +12,7 @@ function AddVoter(props) {
   const state = props.state;
   const voterInput = props.voterInput; 
   const setVoterInput = props.setVoterInput; 
-  
-  const voterButton = () => {
-    return (
-      <div>
-        <br /><br />
-        <input value={voterInput} onChange={handleChangeVoter} />
-        <button onClick={handleSubmitVoter}>Add voter</button>
-      </div>
-    )
-  }
+
   const handleChangeVoter = (e) => {
     e.preventDefault();
     setVoterInput(e.target.value);
@@ -27,9 +24,20 @@ function AddVoter(props) {
   }
   
   return(
-    <div>
-      { voterButton() }
-    </div>
+    <Container className="mt-5">
+      <Form>
+        <Row className="justify-content-md-center">
+          <Col sm={3} className="my-1">
+            <InputGroup value={voterInput} onChange={handleChangeVoter}>
+              <Form.Control id="inlineFormInputName" placeholder="0X..." />
+            </InputGroup>
+          </Col>
+          <Col xs="auto" className="my-1">
+            <Button type="submit" onClick={handleSubmitVoter}>Add voter</Button>
+          </Col>
+        </Row>
+      </Form>
+    </Container>  
   )
 
 }

@@ -5,6 +5,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
 function Proposal(props) {
@@ -22,12 +25,20 @@ function Proposal(props) {
     return (
       <div>
         {workflowStatus === "1" && (
-          <>
-            <input value={proposalInput} onChange={handleChangeProposal} />
-            <button onClick={handleSubmitProposal}>Add proposal</button>
-          </>
-        )}
-        {workflowStatus !== "0" && renderProposals(proposals)}
+          <Form>
+            <Row className="justify-content-md-center">
+              <Col sm={3} className="my-1">
+                <InputGroup value={proposalInput} onChange={handleChangeProposal}>
+                  <Form.Control id="inlineFormInputName"  />
+                </InputGroup>
+              </Col>
+              <Col xs="auto" className="my-1">
+                <Button type="submit"onClick={handleSubmitProposal}>Add Proposal</Button>
+              </Col>
+            </Row>
+          </Form>
+      )}
+      {workflowStatus !== "0" && renderProposals(proposals)}
       </div>
     )
   }
@@ -55,37 +66,44 @@ function Proposal(props) {
     }
   
     return (
-      <Container>
-        {proposalWinningId && <p><b>The winner proposal is: {proposals[proposalWinningId].description}</b></p>}
-        
+      <Container className="mt-5">
+        {proposalWinningId && <p>The winner proposal is: <Badge bg="success">{proposals[proposalWinningId].description}</Badge></p>}
+        <Row className="justify-content-md-center">
         {proposals.map((proposal, index) =>
-          <Row className="justify-content-md-center">
+          
+            <Col sm={4}>
             <Card style={{ width: '18rem' }}>
               <Card.Header>Proposals {index + 1}:</Card.Header>
               <ListGroup variant="flush">
                 <ListGroup.Item> <p>{proposal.description}</p></ListGroup.Item>
                 {workflowStatus === "3" && !currentUser.hasVoted &&
                 <ListGroup>
-                  <Button variant="info" onClick={() => vote(index)}>Vote</Button>
+                  <Button variant="outline-dark" onClick={() => vote(index)}>Vote</Button>
                 </ListGroup>}
                 <ListGroup>
                   {workflowStatus === "5" &&
-                  <Badge bg="success">{proposal.voteCount} {proposal.voteCount > 1 ? "votes" : "vote"}</Badge>}
+                  <Badge bg="dark">{proposal.voteCount} {proposal.voteCount > 1 ? "votes" : "vote"}</Badge>}
                 </ListGroup>
               </ListGroup>
             </Card>
-          </Row>
+            </Col>
+          
         )}
+        </Row>
       </Container>
     )
   }
 
   return (
-    <div> 
+    <Container className="mt-5">
       {wrapperProposal()}
-    </div>
+    </Container>  
   )
 
 }
 
 export default Proposal;
+
+
+
+

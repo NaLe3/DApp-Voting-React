@@ -12,15 +12,15 @@ function WorkflowStatus(props) {
   const workflowStepButton = () => {
     switch (workflowStatus) {
       case "0":
-        return <Button variant="outline-primary" onClick={startProposalsRegistering}>Start proposal registration</Button>;
+        return <Button variant="outline-primary" className="mt-5" onClick={startProposalsRegistering}>Start proposal registration</Button>;
       case "1":
-        return <Button variant="outline-primary" onClick={endProposalsRegistering}>End proposal registration</Button>;
+        return <Button variant="outline-primary" className="mt-5" onClick={endProposalsRegistering}>End proposal registration</Button>;
       case "2":
-        return <Button variant="outline-primary" onClick={startVotingSession}>Start voting session</Button>;
+        return <Button variant="outline-primary" className="mt-5" onClick={startVotingSession}>Start voting session</Button>;
       case "3":
-        return <Button variant="outline-primary" onClick={endVotingSession}>End voting session</Button>;
+        return <Button variant="outline-primary" className="mt-5" onClick={endVotingSession}>End voting session</Button>;
       case "4":
-        return <Button variant="outline-primary" onClick={tallyVotes}>Tally votes</Button>;
+        return <Button variant="outline-primary" className="mt-5" onClick={tallyVotes}>Tally votes</Button>;
     }
   }
 
